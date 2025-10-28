@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  reactStrictMode: true,
+  images: {
+    domains: ["books.google.com"], // allow Google Books thumbnails
+  },
 };
 
 export default nextConfig;
