@@ -1,9 +1,35 @@
-import React from "react";
+"use client";
+import React, { ChangeEvent, useState } from "react";
 
-const Search = () => {
+export type SearchProps = {
+  onSearch: (value: string) => void;
+};
+const Search = (props: SearchProps) => {
+  const placeholderValue = "Search for books...";
+  const { onSearch } = props;
+  const [value, setValue] = useState(placeholderValue);
+
+  const searchHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const { target } = event;
+    setValue(target.value);
+  };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      onSearch(value);
+      console.log(value);
+    }
+  };
   return (
     <div className="relative w-full text-gray-600">
-      <input className="bg-gray-100 h-10 px-5 pr-10 w-full rounded-full text-sm focus:outline-none" />
+      <input
+        type={"search"}
+        name={"search"}
+        placeholder={placeholderValue}
+        className="bg-gray-100 h-10 px-5 pr-10 w-full rounded-full text-sm focus:outline-none"
+        onChange={searchHandler}
+        onKeyDown={handleKeyDown}
+      />
+
       <button type="submit" className="absolute right-0 top-0 mt-3 mr-4">
         <svg
           width="20px"
